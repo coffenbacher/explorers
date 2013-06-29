@@ -9,6 +9,6 @@ class Image(ImageModel):
     longitude = models.FloatField()
     created_by = models.ForeignKey(User)
 
-    places = models.ManyToManyField(Place)
+    places = models.ManyToManyField(Place, related_name='images', blank=True, null=True)
     activity = models.ForeignKey(ActivityType)
     

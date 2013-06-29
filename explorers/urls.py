@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     #url(r'^about/$', 'bjjweb.views.about', name='about'),
     #(r'^accounts/', include('registration.backends.simple.urls')),
     #(r'^users/', include('bjjprofile.urls')),
-    #(r'^technique/', include('technique.urls')),
+    (r'^activity/', include('activity.urls')),
     #(r'^flow/', include('flow.urls')),
     # url(r'^bjjweb/', include('bjjweb.foo.urls')),
 
