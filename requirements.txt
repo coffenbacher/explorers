@@ -1,9 +1,11 @@
 Django==1.5.1
+Pillow==2.0.0
 South==0.8.1
 argparse==1.2.1
 boto==2.9.6
 dj-database-url==0.2.1
 django-extensions==1.1.1
+django-photologue==2.6.1
 django-storages==1.1.8
 gunicorn==0.17.4
 ipython==0.13.2
