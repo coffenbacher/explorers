@@ -1,4 +1,28 @@
-# Django settings for explorers project.
+import os
+import sys
+
+PROJECT_PATH = os.path.dirname(os.path.realpath(__file__))
+
+DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE', 'django.core.files.storage.FileSystemStorage') # 'bjjweb.s3utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE', 'django.contrib.staticfiles.storage.StaticFilesStorage') # 'bjjweb.s3utils.StaticRootS3BotoStorage'
+
+#FIX AWS_ACCESS_KEY_ID = 'AKIAI3APQKONXVPX26XA'
+#FIX AWS_SECRET_ACCESS_KEY = '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'
+#FIX AWS_STORAGE_BUCKET_NAME = 'bjjweb'
+
+if 'StaticFilesStorage' in STATICFILES_STORAGE:
+    STATIC_ROOT = os.path.join(PROJECT_PATH, '../staticfiles')
+    STATIC_URL = '/static/'
+    MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
+    MEDIA_URL = '/media/'
+else:
+    S3_URL = 'http://s3-us-west-2.amazonaws.com/%s' % AWS_STORAGE_BUCKET_NAME
+    STATIC_ROOT = '/static/'
+    STATIC_URL = S3_URL + STATIC_ROOT
+    MEDIA_ROOT = '/media/'#os.path.join(PROJECT_PATH, 'media')
+    MEDIA_URL = S3_URL + MEDIA_ROOT
+    #MEDIA_UPLOAD_ROOT = os.path.join(MEDIA_ROOT, 'uploads')
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -13,17 +37,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': '',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -48,30 +67,17 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
-
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
-
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
+# Example: "/home/media/media.lawrence.com/static/"
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_PATH, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -82,8 +88,9 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'vn@x$cshm58x*!8-u-41cgyu_s)q235t1=wm5nkc32yo&oou!m'
+SECRET_KEY = '@7pw1!g$-f8#eqy7=&amp;ys++ztzn_u4=2q6xw_1*3z_zo%n$*z)+'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -108,22 +115,33 @@ ROOT_URLCONF = 'explorers.urls'
 WSGI_APPLICATION = 'explorers.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_PATH, '../templates'),
 )
 
 INSTALLED_APPS = (
+    'gunicorn',
+    'south',
+    'storages',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.sitemaps',
+    'django.contrib.flatpages',
+    'explorers',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+#    'fixture_magic',
+#    'django_extensions',
+#    'django_extensions.tests',
+#    'photologue',
+#    'registration',
+#    'bjjprofile',
+#    'technique',
+#    'flow',
+#    'competition'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -154,3 +172,28 @@ LOGGING = {
         },
     }
 }
+
+# Parse database configuration from $DATABASE_URL
+db = {'username': 'postgres',
+      'password': 'beffy44',
+      'name': 'explorers',}
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(
+                        default='postgres://%s:%s@localhost:5432/%s' % (
+                                db['username'], 
+                                db['password'], 
+                                db['name'])
+                        )
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
+
+LOGIN_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/users/'
+
+TEST_RUNNER = 'ignoretests.DjangoIgnoreTestSuiteRunner'
+IGNORE_TESTS = (
+    'storages',
+    'registration'
+)
