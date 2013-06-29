@@ -3,20 +3,39 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Join Explorers</title>
+        <title>Bootstrap, from Twitter</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
 
         <!-- Le styles -->
         <link href="assets/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
         <style type="text/css">
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
             }
+            .carousel .container {
+                position: relative;
+                z-index: 9;
+            }
             .sidebar-nav {
                 padding: 9px 0;
+            }
+            /* MARKETING CONTENT
+    -------------------------------------------------- */
+
+            /* Center align the text within the three columns below the carousel */
+            .marketing .span4 {
+                text-align: center;
+            }
+            .marketing h2 {
+                font-weight: normal;
+            }
+            .marketing .span4 p {
+                margin-left: 10px;
+                margin-right: 10px;
             }
 
             @media (max-width: 980px) {
@@ -26,15 +45,40 @@
                     padding-left: 5px;
                     padding-right: 5px;
                 }
+                .container.navbar-wrapper {
+                    margin-bottom: 0;
+                    width: auto;
+                }
             }
         </style>
         <style>
-            #map-canvas {
+            html, body {
                 margin: 0;
                 padding: 0;
                 height: 100%;
             }
+            #map-canvas {
+                margin: 0;
+                padding: 0;
+                height: 70%;
+            }
         </style>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <script>
+            var map;
+            function initialize() {
+                var mapOptions = {
+                    zoom: 10,
+                    center: new google.maps.LatLng(47.6176825, -122.2005713),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById('map-canvas'),
+                        mapOptions);
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+        </script>
 
         <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -53,6 +97,7 @@
 
     <body>
 
+
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
@@ -61,10 +106,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href="#">Project name</a>
+                    <a class="brand" href="#">Join Explorers</a>
                     <div class="nav-collapse collapse">
                         <p class="navbar-text pull-right">
-                            Logged in as <a href="#" class="navbar-link">Username</a>
+                            <a href="#myModal" role="button" class="navbar-link" data-toggle="modal">Login</a>
                         </p>
                         <ul class="nav">
                             <li class="active"><a href="#">Home</a></li>
@@ -76,42 +121,64 @@
             </div>
         </div>
 
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span3">
-                    <div class="well sidebar-nav">
-                        <ul class="nav nav-list">
-                            <li class="nav-header">Sidebar</li>
-                            <li class="active"><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li class="nav-header">Sidebar</li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li class="nav-header">Sidebar</li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                        </ul>
-                    </div><!--/.well -->
-                </div><!--/span-->
-                <div class="span9">
-                    <div id="map-canvas"></div>
-                </div><!--/span-->
-            </div><!--/row-->
+        <div id="map-canvas"></div>
+        <div class="container marketing">
+
+            <!-- Three columns of text below the carousel -->
+            <div class="row">
+                <div class="span2">
+                    <img class="img-circle" src="assets/img/activities/biking.jpg" width="60px" height="60px">
+                    <h2>Hiking</h2>
+                </div><!-- /.span4 -->
+                <div class="span2">
+                    <img class="img-circle" src="assets/img/activities/hiking.jpg" width="60px" height="60px">
+                    <h2>Camping</h2>
+                </div><!-- /.span4 -->
+                <div class="span2">
+                    <img class="img-circle" src="assets/img/activities/biking.jpg" width="60px" height="60px">
+                    <h2>Boating</h2>
+                </div><!-- /.span4 -->
+                <div class="span2">
+                    <img class="img-circle" src="assets/img/activities/hiking.jpg" width="60px" height="60px">
+                    <h2>Climbing</h2>
+                </div><!-- /.span4 -->
+                <div class="span2">
+                    <img class="img-circle" src="assets/img/activities/biking.jpg" width="60px" height="60px">
+                    <h2>Fishing</h2>
+                </div><!-- /.span4 -->
+                <div class="span2">
+                    <img class="img-circle" src="assets/img/activities/hiking.jpg" width="60px" height="60px">
+                    <h2>Hunting</h2>
+                </div><!-- /.span4 -->
+            </div><!-- /.row -->
 
             <hr>
 
-            <footer>
-                <p>&copy; Company 2013</p>
-            </footer>
-
         </div><!--/.fluid-container-->
+        <form class="form-signin">
+            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Login</h3>
+                </div>
+
+                <div class="modal-body">
+                    <input type="text" class="input-block-level" placeholder="Email address">
+                    <input type="password" class="input-block-level" placeholder="Password">
+                    <label class="checkbox">
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </div>
+            </div>
+        </form>
+
+
 
         <!-- Le javascript
         ================================================== -->
@@ -129,21 +196,6 @@
         <script src="assets/js/bootstrap-collapse.js"></script>
         <script src="assets/js/bootstrap-carousel.js"></script>
         <script src="assets/js/bootstrap-typeahead.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-        <script>
-            var map;
-            function initialize() {
-                var mapOptions = {
-                    zoom: 10,
-                    center: new google.maps.LatLng(47.6176825, -122.2005713),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                map = new google.maps.Map(document.getElementById('map-canvas'),
-                        mapOptions);
-            }
-
-            google.maps.event.addDomListener(window, 'load', initialize);
-
-        </script>
+        <script src="assets/js/holder/holder.js"></script>
     </body>
 </html>
