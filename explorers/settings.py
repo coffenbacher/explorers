@@ -6,9 +6,9 @@ PROJECT_PATH = os.path.dirname(os.path.realpath(__file__))
 DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE', 'django.core.files.storage.FileSystemStorage') # 'bjjweb.s3utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE', 'django.contrib.staticfiles.storage.StaticFilesStorage') # 'bjjweb.s3utils.StaticRootS3BotoStorage'
 
-#FIX AWS_ACCESS_KEY_ID = 'AKIAI3APQKONXVPX26XA'
-#FIX AWS_SECRET_ACCESS_KEY = '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'
-#FIX AWS_STORAGE_BUCKET_NAME = 'bjjweb'
+AWS_ACCESS_KEY_ID = 'AKIAJFS42WMAXJEFRO2Q'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'explorers'
 
 if 'StaticFilesStorage' in STATICFILES_STORAGE:
     STATIC_ROOT = os.path.join(PROJECT_PATH, '../staticfiles')
