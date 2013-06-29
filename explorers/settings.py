@@ -133,6 +133,8 @@ INSTALLED_APPS = (
     'explorers',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'photologue',
+    'photos',
 #    'fixture_magic',
 #    'django_extensions',
 #    'django_extensions.tests',
