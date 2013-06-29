@@ -135,6 +135,8 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'photologue',
     'photos',
+    'activity',
+    'place',
 #    'fixture_magic',
 #    'django_extensions',
 #    'django_extensions.tests',
