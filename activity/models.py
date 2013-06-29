@@ -11,6 +11,7 @@ class Activity(models.Model):
     name = models.CharField(max_length=200)
     type = models.ForeignKey("ActivityType")
     place = models.ForeignKey(Place)
+    description = models.TextField(null=True, blank=True)
     distance = models.FloatField(null=True, blank=True)
     difficulty = models.IntegerField(choices = zip(range(1,10), range(1,10)), null=True, blank=True)
     hours = models.FloatField(null=True, blank=True)

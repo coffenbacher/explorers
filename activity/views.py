@@ -38,6 +38,7 @@ def search(request):
     for a in activities:
         di = {
             "name": a.name,
+            "description": a.description,
             "latitude": a.place.latitude,
             "longitude": a.place.longitude,
             "difficulty": a.difficulty,
