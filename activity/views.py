@@ -43,7 +43,7 @@ def search(request):
             "longitude": a.place.longitude,
             "difficulty": a.difficulty,
             "hours": a.hours,
-            "images": [i.photo.get_absolute_url() for i in a.place.images.all()]
+            "images": [i.image.url for i in a.place.images.all()]
         }
 
         d.append(di)
