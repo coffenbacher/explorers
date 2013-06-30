@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row map" style="margin:0px; position:relative;">
         <div class="span12" style="margin:0px;">
-            <div class="map-canvas" id="map" style="margin:0px;"></div>
+            <div class="map-canvas" id="map" style="margin:0px; height:500px; "></div>
         </div>
     </div>
     {% for r in results %}

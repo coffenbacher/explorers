@@ -5,4 +5,25 @@
 </div>
 {% endblock %}
 {% block content %}
+        <div class="container marketing">
+
+            <!-- Three columns of text below the carousel -->
+            <div class="row">
+                <div class="span2">
+                    <img class="img-circle" src="{{STATIC_URL}}assets/img/activities/campingbw.jpg" width="60px" height="60px" onmouseover="this.src='{{STATIC_URL}}assets/img/activities/camping.jpg';" onmouseout="this.src='{{STATIC_URL}}assets/img/activities/campingbw.jpg';">
+                </div><!-- /.span4 -->
+                <div class="span2">
+                    <img class="img-circle" src="{{ STATIC_URL }}assets/img/activities/hikingbw.jpg" width="60px" height="60px" onmouseover="this.src='{{ STATIC_URL }}assets/img/activities/hiking.jpg';" onmouseout="this.src='{{ STATIC_URL }}assets/img/activities/hikingbw.jpg';">
+                </div><!-- /.span4 -->
+                <div class="span2">
+                    <img class="img-circle" src="{{ STATIC_URL }}assets/img/activities/fishingbw.jpg" width="60px" height="60px" onmouseover="this.src='{{ STATIC_URL }}assets/img/activities/fishing.jpg';" onmouseout="this.src='{{ STATIC_URL }}assets/img/activities/fishingbw.jpg';">
+                </div><!-- /.span4 -->
+                <div class="span2">
+                    <img class="img-circle" src="{{ STATIC_URL }}assets/img/activities/naturebw.jpg" width="60px" height="60px" onmouseover="this.src='{{ STATIC_URL }}assets/img/activities/nature.jpg';" onmouseout="this.src='{{ STATIC_URL }}assets/img/activities/naturebw.jpg';">
+                </div><!-- /.span4 -->
+            </div><!-- /.row -->
+
+            <hr>
+
+        </div><!--/.fluid-container-->
 {% endblock %}
