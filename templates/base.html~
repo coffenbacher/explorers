@@ -93,7 +93,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href="#">Join Explorers</a>
+                    <a class="brand" href="#"><img src="{{ STATIC_URL }}assets/img/MainLogo.png"></a>
                     <div class="nav-collapse collapse">
                         <p class="navbar-text pull-right">
                         </p>
@@ -112,31 +112,7 @@
         <div class="container" id="content" style="margin-top:80px;">
             {% block content %} {% endblock %}
         </div>
-        <div class="container marketing">
 
-            <!-- Three columns of text below the carousel -->
-            <div class="row">
-                <div class="span2">
-                    <img class="img-circle" src="{{STATIC_URL}}assets/img/activities/campingbw.jpg" width="60px" height="60px" onmouseover="this.src='{{STATIC_URL}}assets/img/activities/camping.jpg';" onmouseout="this.src='{{STATIC_URL}}assets/img/activities/campingbw.jpg';">
-                    <h2>Camping</h2>
-                </div><!-- /.span4 -->
-                <div class="span2">
-                    <img class="img-circle" src="{{ STATIC_URL }}assets/img/activities/hikingbw.jpg" width="60px" height="60px" onmouseover="this.src='{{ STATIC_URL }}assets/img/activities/hiking.jpg';" onmouseout="this.src='{{ STATIC_URL }}assets/img/activities/hikingbw.jpg';">
-                    <h2>Hiking</h2>
-                </div><!-- /.span4 -->
-                <div class="span2">
-                    <img class="img-circle" src="{{ STATIC_URL }}assets/img/activities/fishingbw.jpg" width="60px" height="60px" onmouseover="this.src='{{ STATIC_URL }}assets/img/activities/fishing.jpg';" onmouseout="this.src='{{ STATIC_URL }}assets/img/activities/fishingbw.jpg';">
-                    <h2>Fishing</h2>
-                </div><!-- /.span4 -->
-                <div class="span2">
-                    <img class="img-circle" src="{{ STATIC_URL }}assets/img/activities/naturebw.jpg" width="60px" height="60px" onmouseover="this.src='{{ STATIC_URL }}assets/img/activities/nature.jpg';" onmouseout="this.src='{{ STATIC_URL }}assets/img/activities/naturebw.jpg';">
-                    <h2>Nature</h2>
-                </div><!-- /.span4 -->
-            </div><!-- /.row -->
-
-            <hr>
-
-        </div><!--/.fluid-container-->
         <form class="form-signin">
             <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-header">
