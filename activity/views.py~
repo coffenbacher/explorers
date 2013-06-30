@@ -10,7 +10,7 @@ import pdb
 
 def home(request):
     i = Image.objects.all()[0]
-    return render(request, 'home.html', {'i': i, 'search': True})
+    return render(request, 'home.html', {'image': i, 'search': True})
 
 def activities(request):
     results = search_helper(request)

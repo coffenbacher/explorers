@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block hero %}
+<div style="overflow:hidden; height:400px;">
+	<img src="{{ i.image.url }}" style="-webkit-filter:blur(5px); width:100%">
+</div>
+{% endblock %}
+{% block content %}
+{% endblock %}
