@@ -20,4 +20,3 @@ class Activity(models.Model):
     
     def __unicode__(self):
         return '%s %s' % (self.name, self.type)
-        

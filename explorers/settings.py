@@ -138,7 +138,7 @@ INSTALLED_APPS = (
     'activity',
     'place',
 #    'fixture_magic',
-#    'django_extensions',
+    'django_extensions',
 #    'django_extensions.tests',
 #    'photologue',
 #    'registration',

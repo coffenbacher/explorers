@@ -1,12 +1,40 @@
 # Create your views here.
+from django.shortcuts import render
 from models import *
 from django.http import HttpResponse
 from django.core import serializers
 import json
-
 import pdb
 
+
+def home(request):
+    results = search_helper(request)
+    search = not request.GET.get('type', False)
+    return render(request, 'activities.html', {'results': results, 'search': search})
+
 def search(request):
+    activities = search_helper(request)
+
+
+    d = []
+    for a in activities:
+        di = {
+            "name": a.name,
+            "description": a.description,
+            "latitude": a.place.latitude,
+            "longitude": a.place.longitude,
+            "difficulty": a.difficulty,
+            "hours": a.hours,
+            "images": [i.image.url for i in a.place.images.all()]
+        }
+
+        d.append(di)
+    return HttpResponse(json.dumps(d))
+
+def search_helper(request):
+    if not request.GET.get('type'):
+        return Activity.objects.all()[:2]
+
     p = {
             "type": request.GET["type"],
             "latitude": float(request.GET["latitude"]),
@@ -31,22 +59,17 @@ def search(request):
                                             difficulty__lte = p['max_difficulty'],
                                             hours__gte = p['min_hours'],
                                             hours__lte = p['max_hours'],)
-
-
-
-    d = []
     for a in activities:
-        di = {
-            "name": a.name,
-            "description": a.description,
-            "latitude": a.place.latitude,
-            "longitude": a.place.longitude,
-            "difficulty": a.difficulty,
-            "hours": a.hours,
-            "images": [i.image.url for i in a.place.images.all()]
-        }
+        a.weather = weather_helper(a, int(request.GET.get('days', 0)))
+        
+    return activities
 
-        d.append(di)
-    return HttpResponse(json.dumps(d))
-
-
+def weather_helper(a, days):
+    import urllib2
+    import json
+    f = urllib2.urlopen('http://api.wunderground.com/api/03c2f797c352abcd/forecast10day/q/%s,%s.json'% (a.place.latitude, a.place.longitude))
+    json_string = f.read()
+    parsed_json = json.loads(json_string)
+    forecast = parsed_json['forecast']['txt_forecast']['forecastday']
+    forecast = forecast[days / 2] 
+    return forecast

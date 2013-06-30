@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for r in results %}
+        <div class="row result" data-pk="{{ r.pk }}">
+            <div class="row" style="background: #C7B199;">
+                <div class="span9" style="position:relative; margin:0px;">
+                    {% with r.place.images.all|first as i %}
+                        <div style="width: 100%; overflow:hidden; height: 250px;">
+                            <img src="{{ i.image.url }}" width="100%">
+                        </div>
+                    {% endwith %}
+                    <h2 style="position:absolute;left:15px;top:5px;color:white;background:black">{{ r.name }}</h2>
+                </div>
+                <div class="span3" style="color:#584c46; font: calibri;">
+                    <div>Distance: {{ r.distance }}</div>
+                    <div>Difficulty: {{ r.difficulty }}</div>
+                    <div>Hours: {{ r.hours }}</div>
+                    <div>Rating: *****</div>
+                    <div>Badges: [] []</div>
+                    <div>Weather: {{ r.weather.fcttext }}</div>
+                    <div>{{ r.distance }}</b></div>
+                </div>
+            </div>
+            <div class="row details" style="display:none;" id="map-container-{{ r.pk }}">
+                <div class="span9" style="margin: 0px;">
+                    <div class="map-canvas" id="map-{{ r.pk }}"></div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            var map;
+            function initialize() {
+                var pos = new google.maps.LatLng({{ r.place.latitude }}, {{ r.place.longitude }});
+                var mapOptions = {
+                    zoom: 10,
+                    center: pos,
+                    disableDefaultUI: true,
+                    mapTypeId: google.maps.MapTypeId.HYBRID,
+                }
+                map = new google.maps.Map(document.getElementById('map-{{ r.pk }}'),
+                        mapOptions);
+
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    title: "{{ r.name }}"
+                });
+                marker.setMap(map);
+                maps[{{ r.pk }}] = map;
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+        </script>
+    {% endfor %}
+{% endblock %}
